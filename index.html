@@ -3,12 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz TADC - Los 8 personajes</title>
     <!-- Pico.css (ultraligero) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="styles/main.css">
 </head>
+<!-- Botón flotante para cambiar tema (opcional) -->
+<button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">🌓</button>
+<script>
+    (function() {
+        const toggleBtn = document.getElementById('themeToggle');
+        if (!toggleBtn) return;
+        // Detectar si ya hay preferencia guardada
+        const savedTheme = localStorage.getItem('tadc-theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+        } else if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark-theme');
+        }
+        toggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark-theme');
+            localStorage.setItem('tadc-theme', isDark ? 'dark' : 'light');
+            // Opcional: cambiar emoji del botón
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+        // Inicializar emoji según tema actual
+        const isDarkNow = document.documentElement.classList.contains('dark-theme');
+        toggleBtn.textContent = isDarkNow ? '☀️' : '🌙';
+    })();
+</script>
 <body>
     <main class="container">
         <div class="quiz-card">
