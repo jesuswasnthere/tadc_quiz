@@ -1,0 +1,126 @@
+/* Estilos personalizados para el quiz TADC - versión legible con texto blanco */
+body {
+    background: linear-gradient(135deg, #1e1a2f 0%, #2a1f3a 100%);
+    min-height: 100vh;
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.quiz-card {
+    background: #fff9ef;
+    border-radius: 2rem;
+    padding: 1.8rem 1.2rem;
+    margin: 1rem 0;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+h1 {
+    color: #ff6b4a;
+    text-shadow: 2px 2px 0 #ffd966;
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.sub {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #5a3e7c;
+    background: #ffe0b5;
+    display: inline-block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.3rem 1rem;
+    border-radius: 3rem;
+}
+
+fieldset {
+    background: #fffaf2;
+    border-radius: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ffdbb5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+legend {
+    font-weight: 700;
+    background: #ffd966c0;
+    padding: 0.2rem 1rem;
+    border-radius: 2rem;
+    width: auto;
+    font-size: 1rem;
+    color: #2c1a3a;
+}
+
+button {
+    transition: all 0.1s ease;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.resultado-personaje {
+    background: #2c1e3a;
+    color: #f7efd9;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    border: 1px solid #ffaa6644;
+}
+
+/* Texto descriptivo en blanco puro */
+.resultado-personaje p {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 1.5rem;
+    color: #ffffff;
+}
+
+/* Botón de reinicio con buen contraste */
+#btnReset {
+    background: #ffaa66;
+    color: #2c1e3a;
+    border: none;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #b5a0d4;
+    margin: 1.5rem 0;
+    font-weight: 500;
+}
+
+input[type="radio"] {
+    accent-color: #ff6b4a;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+@media (max-width: 600px) {
+    .quiz-card {
+        padding: 1rem;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .resultado-personaje img {
+        width: 100px;
+        height: 100px;
+    }
+    .resultado-personaje h2 {
+        font-size: 1.5rem;
+    }
+}
