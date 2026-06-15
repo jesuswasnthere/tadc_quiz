@@ -90,7 +90,8 @@ h1 {
     color: var(--text-secondary);
     background: var(--legend-bg);
     display: inline-block;
-    width: auto;
+    width: fit-content;        /* ← fuerza a que se ajuste al contenido */
+    max-width: 90%;            /* ← evita desborde en pantallas muy pequeñas */
     margin-left: auto;
     margin-right: auto;
     padding: 0.3rem 1rem;
