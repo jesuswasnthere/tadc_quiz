@@ -90,7 +90,7 @@ const preguntas = [
       ] }
 ];
 
-// Descripciones finales (sin cambios, ya están bien)
+// Descripciones finales de cada personaje (sin referencias obvias a trabajos)
 const descripciones = {
     Pomni: "🎭 Eres Pomni. Vives con cierta ansiedad, te preocupas por el futuro, pero eres ingenioso y muy humano. Siempre buscas mejorar y aprender cosas nuevas.",
     Jax: "🐰 Eres Jax. Divertido, caótico y un poco sarcástico. Te gusta provocar y reírte, pero debajo de esa fachada hay alguien que no soporta el aburrimiento.",
@@ -106,6 +106,7 @@ let respuestas = new Array(preguntas.length).fill(null);
 
 function renderPreguntas() {
     const container = document.getElementById("preguntasArea");
+    if (!container) return;
     container.innerHTML = "";
     preguntas.forEach((preg, idx) => {
         const fieldset = document.createElement("fieldset");
@@ -152,6 +153,7 @@ function calcularResultado() {
     
     const imagenURL = `assets/${ganador.toLowerCase()}.jpg`;
     const resultadoDiv = document.getElementById("resultadoArea");
+    if (!resultadoDiv) return;
     resultadoDiv.style.display = "block";
     resultadoDiv.innerHTML = `
         <div class="resultado-personaje">
@@ -165,17 +167,22 @@ function calcularResultado() {
             <button id="btnReset" class="secondary" style="margin-top: 1.5rem;">🔄 Hacer el quiz de nuevo</button>
         </div>
     `;
-    document.getElementById("btnCalcular").style.display = "none";
-    document.getElementById("btnReset").addEventListener("click", () => {
-        respuestas.fill(null);
-        renderPreguntas();
-        resultadoDiv.style.display = "none";
-        document.getElementById("btnCalcular").style.display = "block";
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    const btnCalcular = document.getElementById("btnCalcular");
+    if (btnCalcular) btnCalcular.style.display = "none";
+    const btnReset = document.getElementById("btnReset");
+    if (btnReset) {
+        btnReset.addEventListener("click", () => {
+            respuestas.fill(null);
+            renderPreguntas();
+            resultadoDiv.style.display = "none";
+            if (btnCalcular) btnCalcular.style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderPreguntas();
-    document.getElementById("btnCalcular").addEventListener("click", calcularResultado);
+    const btnCalcular = document.getElementById("btnCalcular");
+    if (btnCalcular) btnCalcular.addEventListener("click", calcularResultado);
 });

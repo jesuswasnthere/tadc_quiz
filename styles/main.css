@@ -41,7 +41,7 @@
     }
 }
 
-/* Clase .dark-theme para toggle manual (opcional) */
+/* Clase .dark-theme para toggle manual (sobrescribe el modo automático) */
 .dark-theme {
     --bg-body: linear-gradient(135deg, #121212 0%, #1f1a2e 100%);
     --card-bg: rgba(30, 25, 40, 0.96);
@@ -83,6 +83,7 @@ h1 {
     text-align: center;
 }
 
+/* Subtítulo con fondo ajustado al texto */
 .sub {
     text-align: center;
     font-weight: 600;
@@ -90,8 +91,8 @@ h1 {
     color: var(--text-secondary);
     background: var(--legend-bg);
     display: inline-block;
-    width: fit-content;        /* ← fuerza a que se ajuste al contenido */
-    max-width: 90%;            /* ← evita desborde en pantallas muy pequeñas */
+    width: fit-content;
+    max-width: 90%;
     margin-left: auto;
     margin-right: auto;
     padding: 0.3rem 1rem;
@@ -176,8 +177,33 @@ input[type="radio"] {
 label {
     color: var(--text-primary);
     font-weight: 500;
+    margin-left: 0.4rem;
 }
 
+/* Botón flotante de tema (visible y funcional en móvil) */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--btn-bg);
+    color: var(--btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    pointer-events: auto;
+    transition: transform 0.1s;
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Ajustes responsivos para móvil */
 @media (max-width: 600px) {
     .quiz-card {
         padding: 1rem;
@@ -192,21 +218,11 @@ label {
     .resultado-personaje h2 {
         font-size: 1.5rem;
     }
-}
-
-/* Botón toggle manual (opcional, lo puedes agregar en el HTML) */
-.theme-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--btn-bg);
-    color: var(--btn-color);
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    z-index: 1000;
+    /* Para que las 8 opciones no se vean apretadas */
+    fieldset div {
+        margin-bottom: 0.5rem;
+    }
+    label {
+        font-size: 0.9rem;
+    }
 }

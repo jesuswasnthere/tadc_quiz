@@ -14,7 +14,6 @@
     <main class="container">
         <div class="quiz-card">
             <h1>🎪 TADC QUIZ 🎭</h1>
-            <!-- ELIMINADO el style inline que causaba el fondo ancho -->
             <div class="sub">¿A qué personaje del Circo Digital te pareces?</div>
             <div id="preguntasArea"></div>
             <button id="btnCalcular" class="contrast" style="width:100%; font-weight:bold;">✨ Descubrir mi personaje ✨</button>
@@ -23,43 +22,53 @@
         <footer>Basado en personalidades + empleos secretos de TADC</footer>
     </main>
 
-    <!-- Botón flotante para cambiar tema (ahora DENTRO del body) -->
+    <!-- Botón flotante para cambiar tema (claro/oscuro) -->
     <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">🌓</button>
 
-    <!-- Lógica del quiz TADC -->
+    <!-- Lógica del quiz (preguntas, opciones, resultado) -->
     <script src="js/quiz.js"></script>
 
-    <!-- Script para el cambio de tema (mejorado y sincronizado) -->
+    <!-- Script para el cambio de tema con soporte táctil -->
     <script>
         (function() {
-            const toggleBtn = document.getElementById('themeToggle');
-            if (!toggleBtn) {
-                console.warn('Botón themeToggle no encontrado');
-                return;
-            }
-            // Cargar tema guardado
-            const savedTheme = localStorage.getItem('tadc-theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-                toggleBtn.textContent = '☀️';
-            } else if (savedTheme === 'light') {
-                document.documentElement.classList.remove('dark-theme');
-                toggleBtn.textContent = '🌙';
-            } else {
-                // Si no hay guardado, respetar preferencia del sistema
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (prefersDark) {
-                    toggleBtn.textContent = '☀️';
+            function setTheme(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark-theme');
                 } else {
-                    toggleBtn.textContent = '🌙';
+                    document.documentElement.classList.remove('dark-theme');
+                }
+                localStorage.setItem('tadc-theme', isDark ? 'dark' : 'light');
+                const btn = document.getElementById('themeToggle');
+                if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+            }
+
+            function toggleTheme(e) {
+                e.preventDefault();  // evita cualquier zoom/scroll en móvil
+                const isDark = document.documentElement.classList.contains('dark-theme');
+                setTheme(!isDark);
+                // pequeña animación de retroalimentación
+                const btn = document.getElementById('themeToggle');
+                if (btn) {
+                    btn.style.transform = 'scale(0.9)';
+                    setTimeout(() => { if (btn) btn.style.transform = ''; }, 150);
                 }
             }
 
-            toggleBtn.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.toggle('dark-theme');
-                localStorage.setItem('tadc-theme', isDark ? 'dark' : 'light');
-                toggleBtn.textContent = isDark ? '☀️' : '🌙';
-            });
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                // Cargar tema guardado o preferencia del sistema
+                const savedTheme = localStorage.getItem('tadc-theme');
+                if (savedTheme === 'dark') {
+                    setTheme(true);
+                } else if (savedTheme === 'light') {
+                    setTheme(false);
+                } else {
+                    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+                }
+                // Eventos para ratón y táctil
+                toggleBtn.addEventListener('click', toggleTheme);
+                toggleBtn.addEventListener('touchstart', toggleTheme);
+            }
         })();
     </script>
 </body>
