@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="color-scheme" content="light dark">
     <title>Quiz TADC - Los 8 personajes</title>
-    <!-- Pico.css (ultraligero) -->
+    <!-- Pico.css ultraligero -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <!-- Tu CSS personalizado -->
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -25,7 +26,7 @@
     <!-- Botón flotante para cambiar tema (claro/oscuro) -->
     <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">🌓</button>
 
-    <!-- Lógica del quiz (preguntas, opciones, resultado) -->
+    <!-- Script del quiz -->
     <script src="js/quiz.js"></script>
 
     <!-- Script para el cambio de tema con soporte táctil -->
@@ -43,10 +44,9 @@
             }
 
             function toggleTheme(e) {
-                e.preventDefault();  // evita cualquier zoom/scroll en móvil
+                e.preventDefault();
                 const isDark = document.documentElement.classList.contains('dark-theme');
                 setTheme(!isDark);
-                // pequeña animación de retroalimentación
                 const btn = document.getElementById('themeToggle');
                 if (btn) {
                     btn.style.transform = 'scale(0.9)';
@@ -56,16 +56,10 @@
 
             const toggleBtn = document.getElementById('themeToggle');
             if (toggleBtn) {
-                // Cargar tema guardado o preferencia del sistema
                 const savedTheme = localStorage.getItem('tadc-theme');
-                if (savedTheme === 'dark') {
-                    setTheme(true);
-                } else if (savedTheme === 'light') {
-                    setTheme(false);
-                } else {
-                    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
-                }
-                // Eventos para ratón y táctil
+                if (savedTheme === 'dark') setTheme(true);
+                else if (savedTheme === 'light') setTheme(false);
+                else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
                 toggleBtn.addEventListener('click', toggleTheme);
                 toggleBtn.addEventListener('touchstart', toggleTheme);
             }

@@ -39,9 +39,16 @@
         --result-accent: #ffaa66;
         --footer-color: #9a87b5;
     }
+    /* Aseguramos que preguntas y opciones sean blancas en modo oscuro */
+    legend, label {
+        color: #ffffff !important;
+    }
+    input[type="radio"] {
+        accent-color: #ffaa66;
+    }
 }
 
-/* Clase .dark-theme para toggle manual (sobrescribe el modo automático) */
+/* Clase .dark-theme para toggle manual */
 .dark-theme {
     --bg-body: linear-gradient(135deg, #121212 0%, #1f1a2e 100%);
     --card-bg: rgba(30, 25, 40, 0.96);
@@ -58,8 +65,15 @@
     --result-accent: #ffaa66;
     --footer-color: #9a87b5;
 }
+.dark-theme legend,
+.dark-theme label {
+    color: #ffffff !important;
+}
+.dark-theme input[type="radio"] {
+    accent-color: #ffaa66;
+}
 
-/* Aplicar variables */
+/* Aplicar variables base */
 body {
     background: var(--bg-body);
     min-height: 100vh;
@@ -83,7 +97,7 @@ h1 {
     text-align: center;
 }
 
-/* Subtítulo con fondo ajustado al texto */
+/* Subtítulo ajustado al contenido */
 .sub {
     text-align: center;
     font-weight: 600;
@@ -121,7 +135,6 @@ legend {
 button {
     transition: all 0.1s ease;
 }
-
 button:active {
     transform: scale(0.97);
 }
@@ -135,7 +148,6 @@ button:active {
     text-align: center;
     border: 1px solid var(--result-accent);
 }
-
 .resultado-personaje p {
     font-size: 1rem;
     line-height: 1.5;
@@ -145,7 +157,6 @@ button:active {
     border-radius: 1.5rem;
     color: var(--result-text);
 }
-
 .resultado-personaje h2 {
     color: var(--result-accent);
 }
@@ -180,7 +191,7 @@ label {
     margin-left: 0.4rem;
 }
 
-/* Botón flotante de tema (visible y funcional en móvil) */
+/* Botón flotante de tema */
 .theme-toggle {
     position: fixed;
     bottom: 20px;
@@ -198,12 +209,11 @@ label {
     pointer-events: auto;
     transition: transform 0.1s;
 }
-
 .theme-toggle:active {
     transform: scale(0.95);
 }
 
-/* Ajustes responsivos para móvil */
+/* Responsive para móviles */
 @media (max-width: 600px) {
     .quiz-card {
         padding: 1rem;
@@ -218,7 +228,6 @@ label {
     .resultado-personaje h2 {
         font-size: 1.5rem;
     }
-    /* Para que las 8 opciones no se vean apretadas */
     fieldset div {
         margin-bottom: 0.5rem;
     }

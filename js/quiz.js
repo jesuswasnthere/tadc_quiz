@@ -1,4 +1,4 @@
-// ---------- 8 PREGUNTAS, CADA UNA CON 8 OPCIONES (balance perfecto: cada personaje aparece 8 veces) ----------
+// ---------- PREGUNTAS: 8 preguntas, cada una con 8 opciones ----------
 const preguntas = [
     { texto: "1. ¿Qué haces cuando tienes tiempo libre sin planes?",
       opciones: [
@@ -90,7 +90,7 @@ const preguntas = [
       ] }
 ];
 
-// Descripciones finales de cada personaje (sin referencias obvias a trabajos)
+// Descripciones finales
 const descripciones = {
     Pomni: "🎭 Eres Pomni. Vives con cierta ansiedad, te preocupas por el futuro, pero eres ingenioso y muy humano. Siempre buscas mejorar y aprender cosas nuevas.",
     Jax: "🐰 Eres Jax. Divertido, caótico y un poco sarcástico. Te gusta provocar y reírte, pero debajo de esa fachada hay alguien que no soporta el aburrimiento.",
@@ -104,6 +104,15 @@ const descripciones = {
 
 let respuestas = new Array(preguntas.length).fill(null);
 
+// Función para barajar (shuffle) un array
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 function renderPreguntas() {
     const container = document.getElementById("preguntasArea");
     if (!container) return;
@@ -113,7 +122,11 @@ function renderPreguntas() {
         const legend = document.createElement("legend");
         legend.innerHTML = `<strong>${preg.texto}</strong>`;
         fieldset.appendChild(legend);
-        preg.opciones.forEach((opt, optIdx) => {
+        
+        // Barajar opciones (copiar array original para no modificarlo)
+        const opcionesBarajadas = shuffleArray([...preg.opciones]);
+        
+        opcionesBarajadas.forEach((opt, optIdx) => {
             const radioId = `q${idx}_opt${optIdx}`;
             const div = document.createElement("div");
             div.style.marginBottom = "0.5rem";
