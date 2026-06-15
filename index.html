@@ -4,49 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="color-scheme" content="light dark">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz TADC - Los 8 personajes</title>
     <!-- Pico.css (ultraligero) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="styles/main.css">
 </head>
-<!-- Botón flotante para cambiar tema (opcional) -->
-<button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">🌓</button>
-<script>
-    (function() {
-        const toggleBtn = document.getElementById('themeToggle');
-        if (!toggleBtn) return;
-        // Detectar si ya hay preferencia guardada
-        const savedTheme = localStorage.getItem('tadc-theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.classList.add('dark-theme');
-        } else if (savedTheme === 'light') {
-            document.documentElement.classList.remove('dark-theme');
-        }
-        toggleBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark-theme');
-            localStorage.setItem('tadc-theme', isDark ? 'dark' : 'light');
-            // Opcional: cambiar emoji del botón
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
-        });
-        // Inicializar emoji según tema actual
-        const isDarkNow = document.documentElement.classList.contains('dark-theme');
-        toggleBtn.textContent = isDarkNow ? '☀️' : '🌙';
-    })();
-</script>
 <body>
     <main class="container">
         <div class="quiz-card">
             <h1>🎪 TADC QUIZ 🎭</h1>
-            <div class="sub" style="display: flex; justify-content: center;">¿A qué personaje del Circo Digital te pareces?</div>
+            <!-- ELIMINADO el style inline que causaba el fondo ancho -->
+            <div class="sub">¿A qué personaje del Circo Digital te pareces?</div>
             <div id="preguntasArea"></div>
             <button id="btnCalcular" class="contrast" style="width:100%; font-weight:bold;">✨ Descubrir mi personaje ✨</button>
             <div id="resultadoArea" style="display: none;"></div>
         </div>
         <footer>Basado en personalidades + empleos secretos de TADC</footer>
     </main>
-    <!-- Lógica de quiz tadc -->
+
+    <!-- Botón flotante para cambiar tema (ahora DENTRO del body) -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">🌓</button>
+
+    <!-- Lógica del quiz TADC -->
     <script src="js/quiz.js"></script>
+
+    <!-- Script para el cambio de tema (mejorado y sincronizado) -->
+    <script>
+        (function() {
+            const toggleBtn = document.getElementById('themeToggle');
+            if (!toggleBtn) {
+                console.warn('Botón themeToggle no encontrado');
+                return;
+            }
+            // Cargar tema guardado
+            const savedTheme = localStorage.getItem('tadc-theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-theme');
+                toggleBtn.textContent = '☀️';
+            } else if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-theme');
+                toggleBtn.textContent = '🌙';
+            } else {
+                // Si no hay guardado, respetar preferencia del sistema
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    toggleBtn.textContent = '☀️';
+                } else {
+                    toggleBtn.textContent = '🌙';
+                }
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark-theme');
+                localStorage.setItem('tadc-theme', isDark ? 'dark' : 'light');
+                toggleBtn.textContent = isDark ? '☀️' : '🌙';
+            });
+        })();
+    </script>
 </body>
 </html>
